@@ -1,0 +1,20 @@
+[package]
+name = "ferris-servo"
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "A real-engine browser shell: GTK4 chrome (tabs + address bar) around the Servo web engine, which is written in Rust."
+
+[dependencies]
+# GTK4 widget that embeds the Servo engine (brings Servo in as a git dep).
+servo-gtk = { git = "https://github.com/nacho/servo-gtk.git" }
+gtk = { package = "gtk4", version = "0.11", features = ["v4_12"] }
+glib = { version = "0.22", features = ["v2_74", "log_macros"] }
+log = "0.4"
+# GL loader setup required by the servo-gtk example startup path.
+epoxy = "0.1.0"
+libloading = "0.9"
+
+# Upstream epoxy 0.1.0 blocks `cargo update`; servo-gtk pins this fork.
+[patch.crates-io]
+epoxy = { git = "https://github.com/theCapypara/epoxy-rs", rev = "7d9d88a8dfec2ddedc647b7a8f6c1e5b3e6c6ec0" }
